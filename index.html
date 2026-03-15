@@ -180,11 +180,14 @@ body::before{
   line-height:1.2;
   white-space:normal;
   letter-spacing:-.03em;
-  color:var(--gold);
 }
 
 .hero-line .accent{
   color:var(--gold);
+}
+
+.hero-line2 .plain{
+  color:var(--text);
 }
 
 /* 설명 영역 */
@@ -192,11 +195,12 @@ body::before{
   position:relative;
   z-index:1;
   max-width:38ch;
-  font-size:16.4px;
-  line-height:1.9;
-  color:var(--muted);
+  font-size:16.8px;
+  line-height:1.92;
+  color:var(--text-soft);
   letter-spacing:-.012em;
   word-break:keep-all;
+  font-family:"Hahmlet", serif;
 }
 
 .description p{
@@ -246,9 +250,10 @@ body::before{
 
 .case-note p{
   margin:0;
-  font-size:14px;
-  line-height:1.8;
+  font-size:15px;
+  line-height:1.82;
   color:#4a3c2c;
+  font-family:"Hahmlet", serif;
 }
 
 /* Notice */
@@ -359,6 +364,76 @@ body::before{
   font-family:"Cinzel", serif;
   font-size:11px;
   letter-spacing:.1em;
+}
+
+/* answer toggle */
+.answer-wrap{
+  margin-top:10px;
+}
+
+.answer-toggle{
+  width:100%;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  padding:14px 16px;
+  border-radius:14px;
+  border:1px solid var(--line);
+  background:
+    linear-gradient(180deg, rgba(80,31,31,.36), rgba(18,18,22,.92));
+  color:var(--paper-soft);
+  font-family:"Hahmlet", serif;
+  font-size:16px;
+  font-weight:700;
+  cursor:pointer;
+  transition:all .2s ease;
+  box-shadow:0 12px 24px rgba(0,0,0,.18);
+}
+
+.answer-toggle:hover{
+  border-color:rgba(215,178,121,.48);
+  transform:translateY(-1px);
+}
+
+.answer-toggle .toggle-left{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.answer-toggle .toggle-mini{
+  font-family:"Cinzel", serif;
+  font-size:11px;
+  letter-spacing:.14em;
+  color:var(--gold);
+  text-transform:uppercase;
+}
+
+.answer-toggle .toggle-icon{
+  flex:0 0 auto;
+  width:28px;
+  height:28px;
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+  border:1px solid rgba(215,178,121,.24);
+  color:var(--gold);
+  font-size:15px;
+  transition:transform .2s ease;
+}
+
+.answer-panel{
+  display:none;
+  margin-top:12px;
+}
+
+.answer-wrap.open .answer-panel{
+  display:block;
+}
+
+.answer-wrap.open .toggle-icon{
+  transform:rotate(45deg);
 }
 
 /* cards */
@@ -509,8 +584,12 @@ body::before{
   }
 
   .description{
-    font-size:15.2px;
-    line-height:1.86;
+    font-size:15.6px;
+    line-height:1.88;
+  }
+
+  .case-note p{
+    font-size:14.5px;
   }
 
   .notice{
@@ -555,8 +634,8 @@ body::before{
   }
 
   .description{
-    font-size:14.5px;
-    line-height:1.82;
+    font-size:14.8px;
+    line-height:1.84;
   }
 
   .card{
@@ -586,6 +665,12 @@ function goLibrary(title){
   const query = encodeURIComponent(title)
   window.open(`https://umyeon.seocholib.or.kr/TotalSearch?keyword=${query}`, '_blank')
 }
+
+function toggleAnswer(button){
+  const wrap = button.closest('.answer-wrap');
+  const isOpen = wrap.classList.toggle('open');
+  button.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+}
 </script>
 </head>
 
@@ -605,7 +690,7 @@ function goLibrary(title){
       </div>
 
       <div class="hero-line2-wrap">
-        <h2 class="hero-line hero-line2">비슷한 그림책을 찾아라!</h2>
+        <h2 class="hero-line hero-line2"><span class="plain">비슷한 그림책을</span> <span class="accent">찾아라!</span></h2>
       </div>
     </div>
 
@@ -666,31 +751,43 @@ function goLibrary(title){
       <div class="file-chip"><strong>CLUE C</strong>장면마다 살아 있는 유머</div>
     </div>
 
-    <div class="grid">
-      <div class="card" onclick="goLibrary('간질간질')">
-        <img class="cover" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='192' viewBox='0 0 140 192'><rect width='140' height='192' rx='8' fill='%23141210'/><rect x='9' y='9' width='122' height='174' rx='6' fill='%23e5d7bf'/><rect x='18' y='18' width='104' height='18' rx='3' fill='%236e2b29'/><text x='70' y='31' font-size='10' text-anchor='middle' fill='%23f5ead9' font-family='Georgia' font-weight='700'>WANTED FILE</text><text x='70' y='84' font-size='22' text-anchor='middle' fill='%23261d14' font-family='Georgia' font-weight='700'>간질</text><text x='70' y='109' font-size='22' text-anchor='middle' fill='%23261d14' font-family='Georgia' font-weight='700'>간질</text><circle cx='106' cy='146' r='12' fill='none' stroke='%23b7915d' stroke-width='3'/><line x1='80' y1='160' x2='95' y2='151' stroke='%23b7915d' stroke-width='3'/></svg>" alt="간질간질 표지">
-        <div class="info">
-          <div class="title">간질간질</div>
-          <div class="author">Seohyun</div>
-          <div class="call">단서 포인트 · 익살스러운 표정 · 생동감 있는 움직임 · 상상력 가득한 전개</div>
-        </div>
-      </div>
+    <div class="answer-wrap">
+      <button class="answer-toggle" type="button" aria-expanded="false" onclick="toggleAnswer(this)">
+        <span class="toggle-left">
+          <span class="toggle-mini">Reveal Answer</span>
+          <span>정답 확인하기</span>
+        </span>
+        <span class="toggle-icon">+</span>
+      </button>
 
-      <div class="card" onclick="goLibrary('호라이')">
-        <img class="cover" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='192' viewBox='0 0 140 192'><rect width='140' height='192' rx='8' fill='%23141210'/><rect x='9' y='9' width='122' height='174' rx='6' fill='%23e5d7bf'/><rect x='18' y='18' width='104' height='18' rx='3' fill='%23152532'/><text x='70' y='31' font-size='10' text-anchor='middle' fill='%23f5ead9' font-family='Georgia' font-weight='700'>EVIDENCE</text><text x='70' y='96' font-size='26' text-anchor='middle' fill='%23261d14' font-family='Georgia' font-weight='700'>호라이</text><path d='M24 146 C48 128, 92 128, 116 146' stroke='%23b7915d' stroke-width='3' fill='none'/><path d='M34 156 C56 142, 84 142, 106 156' stroke='%236e2b29' stroke-width='2.5' fill='none'/></svg>" alt="호라이 표지">
-        <div class="info">
-          <div class="title">호라이</div>
-          <div class="author">Seohyun</div>
-          <div class="call">단서 포인트 · 과장된 장면 연출 · 개성 강한 캐릭터 · 장난기 있는 화면 구성</div>
-        </div>
-      </div>
+      <div class="answer-panel">
+        <div class="grid">
+          <div class="card" onclick="goLibrary('간질간질')">
+            <img class="cover" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='192' viewBox='0 0 140 192'><rect width='140' height='192' rx='8' fill='%23141210'/><rect x='9' y='9' width='122' height='174' rx='6' fill='%23e5d7bf'/><rect x='18' y='18' width='104' height='18' rx='3' fill='%236e2b29'/><text x='70' y='31' font-size='10' text-anchor='middle' fill='%23f5ead9' font-family='Georgia' font-weight='700'>WANTED FILE</text><text x='70' y='84' font-size='22' text-anchor='middle' fill='%23261d14' font-family='Georgia' font-weight='700'>간질</text><text x='70' y='109' font-size='22' text-anchor='middle' fill='%23261d14' font-family='Georgia' font-weight='700'>간질</text><circle cx='106' cy='146' r='12' fill='none' stroke='%23b7915d' stroke-width='3'/><line x1='80' y1='160' x2='95' y2='151' stroke='%23b7915d' stroke-width='3'/></svg>" alt="간질간질 표지">
+            <div class="info">
+              <div class="title">간질간질</div>
+              <div class="author">Seohyun</div>
+              <div class="call">단서 포인트 · 익살스러운 표정 · 생동감 있는 움직임 · 상상력 가득한 전개</div>
+            </div>
+          </div>
 
-      <div class="card" onclick="goLibrary('호랭떡집')">
-        <img class="cover" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='192' viewBox='0 0 140 192'><rect width='140' height='192' rx='8' fill='%23141210'/><rect x='9' y='9' width='122' height='174' rx='6' fill='%23e5d7bf'/><rect x='18' y='18' width='104' height='156' rx='4' fill='none' stroke='%23b7915d' stroke-width='2'/><text x='70' y='84' font-size='20' text-anchor='middle' fill='%23261d14' font-family='Georgia' font-weight='700'>호랭</text><text x='70' y='109' font-size='20' text-anchor='middle' fill='%23261d14' font-family='Georgia' font-weight='700'>떡집</text><rect x='38' y='136' width='64' height='14' rx='7' fill='%236e2b29'/></svg>" alt="호랭떡집 표지">
-        <div class="info">
-          <div class="title">호랭떡집</div>
-          <div class="author">Seohyun</div>
-          <div class="call">단서 포인트 · 전통적 소재의 변주 · 유쾌한 상상 · 이야기 안의 익살스러운 긴장감</div>
+          <div class="card" onclick="goLibrary('호라이')">
+            <img class="cover" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='192' viewBox='0 0 140 192'><rect width='140' height='192' rx='8' fill='%23141210'/><rect x='9' y='9' width='122' height='174' rx='6' fill='%23e5d7bf'/><rect x='18' y='18' width='104' height='18' rx='3' fill='%23152532'/><text x='70' y='31' font-size='10' text-anchor='middle' fill='%23f5ead9' font-family='Georgia' font-weight='700'>EVIDENCE</text><text x='70' y='96' font-size='26' text-anchor='middle' fill='%23261d14' font-family='Georgia' font-weight='700'>호라이</text><path d='M24 146 C48 128, 92 128, 116 146' stroke='%23b7915d' stroke-width='3' fill='none'/><path d='M34 156 C56 142, 84 142, 106 156' stroke='%236e2b29' stroke-width='2.5' fill='none'/></svg>" alt="호라이 표지">
+            <div class="info">
+              <div class="title">호라이</div>
+              <div class="author">Seohyun</div>
+              <div class="call">단서 포인트 · 과장된 장면 연출 · 개성 강한 캐릭터 · 장난기 있는 화면 구성</div>
+            </div>
+          </div>
+
+          <div class="card" onclick="goLibrary('호랭떡집')">
+            <img class="cover" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='192' viewBox='0 0 140 192'><rect width='140' height='192' rx='8' fill='%23141210'/><rect x='9' y='9' width='122' height='174' rx='6' fill='%23e5d7bf'/><rect x='18' y='18' width='104' height='156' rx='4' fill='none' stroke='%23b7915d' stroke-width='2'/><text x='70' y='84' font-size='20' text-anchor='middle' fill='%23261d14' font-family='Georgia' font-weight='700'>호랭</text><text x='70' y='109' font-size='20' text-anchor='middle' fill='%23261d14' font-family='Georgia' font-weight='700'>떡집</text><rect x='38' y='136' width='64' height='14' rx='7' fill='%236e2b29'/></svg>" alt="호랭떡집 표지">
+            <div class="info">
+              <div class="title">호랭떡집</div>
+              <div class="author">Seohyun</div>
+              <div class="call">단서 포인트 · 전통적 소재의 변주 · 유쾌한 상상 · 이야기 안의 익살스러운 긴장감</div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -714,31 +811,43 @@ function goLibrary(title){
       <div class="file-chip"><strong>CLUE C</strong>친근한 캐릭터와 공간감</div>
     </div>
 
-    <div class="grid">
-      <div class="card" onclick="goLibrary('메리')">
-        <img class="cover" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='192' viewBox='0 0 140 192'><rect width='140' height='192' rx='8' fill='%23141210'/><rect x='9' y='9' width='122' height='174' rx='6' fill='%23e5d7bf'/><circle cx='70' cy='88' r='30' fill='none' stroke='%23152532' stroke-width='4'/><text x='70' y='151' font-size='26' text-anchor='middle' fill='%23261d14' font-family='Georgia' font-weight='700'>메리</text></svg>" alt="메리 표지">
-        <div class="info">
-          <div class="title">메리</div>
-          <div class="author">Ahn Nyeongdal</div>
-          <div class="call">단서 포인트 · 따뜻한 시선 · 생활감 있는 공간 · 포근한 감정의 결</div>
-        </div>
-      </div>
+    <div class="answer-wrap">
+      <button class="answer-toggle" type="button" aria-expanded="false" onclick="toggleAnswer(this)">
+        <span class="toggle-left">
+          <span class="toggle-mini">Reveal Answer</span>
+          <span>정답 확인하기</span>
+        </span>
+        <span class="toggle-icon">+</span>
+      </button>
 
-      <div class="card" onclick="goLibrary('왜냐면')">
-        <img class="cover" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='192' viewBox='0 0 140 192'><rect width='140' height='192' rx='8' fill='%23141210'/><rect x='9' y='9' width='122' height='174' rx='6' fill='%23e5d7bf'/><text x='70' y='88' font-size='22' text-anchor='middle' fill='%23261d14' font-family='Georgia' font-weight='700'>왜냐면</text><line x1='36' y1='120' x2='104' y2='120' stroke='%23b7915d' stroke-width='3'/><circle cx='43' cy='120' r='4' fill='%236e2b29'/><circle cx='97' cy='120' r='4' fill='%236e2b29'/></svg>" alt="왜냐면 표지">
-        <div class="info">
-          <div class="title">왜냐면</div>
-          <div class="author">Ahn Nyeongdal</div>
-          <div class="call">단서 포인트 · 부드러운 이야기 흐름 · 아이의 마음에 가까운 질문 · 다정한 상상력</div>
-        </div>
-      </div>
+      <div class="answer-panel">
+        <div class="grid">
+          <div class="card" onclick="goLibrary('메리')">
+            <img class="cover" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='192' viewBox='0 0 140 192'><rect width='140' height='192' rx='8' fill='%23141210'/><rect x='9' y='9' width='122' height='174' rx='6' fill='%23e5d7bf'/><circle cx='70' cy='88' r='30' fill='none' stroke='%23152532' stroke-width='4'/><text x='70' y='151' font-size='26' text-anchor='middle' fill='%23261d14' font-family='Georgia' font-weight='700'>메리</text></svg>" alt="메리 표지">
+            <div class="info">
+              <div class="title">메리</div>
+              <div class="author">Ahn Nyeongdal</div>
+              <div class="call">단서 포인트 · 따뜻한 시선 · 생활감 있는 공간 · 포근한 감정의 결</div>
+            </div>
+          </div>
 
-      <div class="card" onclick="goLibrary('당근유치원')">
-        <img class="cover" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='192' viewBox='0 0 140 192'><rect width='140' height='192' rx='8' fill='%23141210'/><rect x='9' y='9' width='122' height='174' rx='6' fill='%23e5d7bf'/><rect x='52' y='52' width='36' height='52' rx='16' fill='%23b7915d'/><rect x='60' y='40' width='8' height='16' rx='4' fill='%23152532'/><rect x='72' y='38' width='8' height='18' rx='4' fill='%23152532'/><text x='70' y='150' font-size='18' text-anchor='middle' fill='%23261d14' font-family='Georgia' font-weight='700'>당근유치원</text></svg>" alt="당근유치원 표지">
-        <div class="info">
-          <div class="title">당근유치원</div>
-          <div class="author">Ahn Nyeongdal</div>
-          <div class="call">단서 포인트 · 친근한 캐릭터 · 편안한 색감 · 일상 속 환상과 유머</div>
+          <div class="card" onclick="goLibrary('왜냐면')">
+            <img class="cover" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='192' viewBox='0 0 140 192'><rect width='140' height='192' rx='8' fill='%23141210'/><rect x='9' y='9' width='122' height='174' rx='6' fill='%23e5d7bf'/><text x='70' y='88' font-size='22' text-anchor='middle' fill='%23261d14' font-family='Georgia' font-weight='700'>왜냐면</text><line x1='36' y1='120' x2='104' y2='120' stroke='%23b7915d' stroke-width='3'/><circle cx='43' cy='120' r='4' fill='%236e2b29'/><circle cx='97' cy='120' r='4' fill='%236e2b29'/></svg>" alt="왜냐면 표지">
+            <div class="info">
+              <div class="title">왜냐면</div>
+              <div class="author">Ahn Nyeongdal</div>
+              <div class="call">단서 포인트 · 부드러운 이야기 흐름 · 아이의 마음에 가까운 질문 · 다정한 상상력</div>
+            </div>
+          </div>
+
+          <div class="card" onclick="goLibrary('당근유치원')">
+            <img class="cover" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='192' viewBox='0 0 140 192'><rect width='140' height='192' rx='8' fill='%23141210'/><rect x='9' y='9' width='122' height='174' rx='6' fill='%23e5d7bf'/><rect x='52' y='52' width='36' height='52' rx='16' fill='%23b7915d'/><rect x='60' y='40' width='8' height='16' rx='4' fill='%23152532'/><rect x='72' y='38' width='8' height='18' rx='4' fill='%23152532'/><text x='70' y='150' font-size='18' text-anchor='middle' fill='%23261d14' font-family='Georgia' font-weight='700'>당근유치원</text></svg>" alt="당근유치원 표지">
+            <div class="info">
+              <div class="title">당근유치원</div>
+              <div class="author">Ahn Nyeongdal</div>
+              <div class="call">단서 포인트 · 친근한 캐릭터 · 편안한 색감 · 일상 속 환상과 유머</div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -762,31 +871,43 @@ function goLibrary(title){
       <div class="file-chip"><strong>CLUE C</strong>디테일을 볼수록 커지는 재미</div>
     </div>
 
-    <div class="grid">
-      <div class="card" onclick="goLibrary('돼지책')">
-        <img class="cover" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='192' viewBox='0 0 140 192'><rect width='140' height='192' rx='8' fill='%23141210'/><rect x='9' y='9' width='122' height='174' rx='6' fill='%23e5d7bf'/><ellipse cx='70' cy='92' rx='28' ry='20' fill='none' stroke='%236e2b29' stroke-width='3'/><circle cx='60' cy='89' r='3' fill='%23261d14'/><circle cx='80' cy='89' r='3' fill='%23261d14'/><ellipse cx='70' cy='100' rx='10' ry='7' fill='%23b7915d'/><text x='70' y='146' font-size='20' text-anchor='middle' fill='%23261d14' font-family='Georgia' font-weight='700'>돼지책</text></svg>" alt="돼지책 표지">
-        <div class="info">
-          <div class="title">돼지책</div>
-          <div class="author">Anthony Browne</div>
-          <div class="call">단서 포인트 · 상징적인 그림 · 숨은 의미 찾기 · 현실과 환상이 겹치는 장면</div>
-        </div>
-      </div>
+    <div class="answer-wrap">
+      <button class="answer-toggle" type="button" aria-expanded="false" onclick="toggleAnswer(this)">
+        <span class="toggle-left">
+          <span class="toggle-mini">Reveal Answer</span>
+          <span>정답 확인하기</span>
+        </span>
+        <span class="toggle-icon">+</span>
+      </button>
 
-      <div class="card" onclick="goLibrary('우리엄마')">
-        <img class="cover" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='192' viewBox='0 0 140 192'><rect width='140' height='192' rx='8' fill='%23141210'/><rect x='9' y='9' width='122' height='174' rx='6' fill='%23e5d7bf'/><rect x='42' y='48' width='56' height='64' rx='6' fill='none' stroke='%23152532' stroke-width='3'/><text x='70' y='145' font-size='18' text-anchor='middle' fill='%23261d14' font-family='Georgia' font-weight='700'>우리엄마</text></svg>" alt="우리엄마 표지">
-        <div class="info">
-          <div class="title">우리엄마</div>
-          <div class="author">Anthony Browne</div>
-          <div class="call">단서 포인트 · 강한 이미지 비유 · 반복되는 시각 장치 · 익숙함 속 낯선 재미</div>
-        </div>
-      </div>
+      <div class="answer-panel">
+        <div class="grid">
+          <div class="card" onclick="goLibrary('돼지책')">
+            <img class="cover" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='192' viewBox='0 0 140 192'><rect width='140' height='192' rx='8' fill='%23141210'/><rect x='9' y='9' width='122' height='174' rx='6' fill='%23e5d7bf'/><ellipse cx='70' cy='92' rx='28' ry='20' fill='none' stroke='%236e2b29' stroke-width='3'/><circle cx='60' cy='89' r='3' fill='%23261d14'/><circle cx='80' cy='89' r='3' fill='%23261d14'/><ellipse cx='70' cy='100' rx='10' ry='7' fill='%23b7915d'/><text x='70' y='146' font-size='20' text-anchor='middle' fill='%23261d14' font-family='Georgia' font-weight='700'>돼지책</text></svg>" alt="돼지책 표지">
+            <div class="info">
+              <div class="title">돼지책</div>
+              <div class="author">Anthony Browne</div>
+              <div class="call">단서 포인트 · 상징적인 그림 · 숨은 의미 찾기 · 현실과 환상이 겹치는 장면</div>
+            </div>
+          </div>
 
-      <div class="card" onclick="goLibrary('꿈꾸는 윌리')">
-        <img class="cover" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='192' viewBox='0 0 140 192'><rect width='140' height='192' rx='8' fill='%23141210'/><rect x='9' y='9' width='122' height='174' rx='6' fill='%23e5d7bf'/><circle cx='70' cy='80' r='18' fill='none' stroke='%23b7915d' stroke-width='3'/><path d='M44 122 C58 108, 82 108, 96 122' stroke='%236e2b29' stroke-width='3' fill='none'/><text x='70' y='150' font-size='17' text-anchor='middle' fill='%23261d14' font-family='Georgia' font-weight='700'>꿈꾸는 윌리</text></svg>" alt="꿈꾸는 윌리 표지">
-        <div class="info">
-          <div class="title">꿈꾸는 윌리</div>
-          <div class="author">Anthony Browne</div>
-          <div class="call">단서 포인트 · 상상 속 자아 · 디테일 관찰 재미 · 캐릭터의 상징성</div>
+          <div class="card" onclick="goLibrary('우리엄마')">
+            <img class="cover" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='192' viewBox='0 0 140 192'><rect width='140' height='192' rx='8' fill='%23141210'/><rect x='9' y='9' width='122' height='174' rx='6' fill='%23e5d7bf'/><rect x='42' y='48' width='56' height='64' rx='6' fill='none' stroke='%23152532' stroke-width='3'/><text x='70' y='145' font-size='18' text-anchor='middle' fill='%23261d14' font-family='Georgia' font-weight='700'>우리엄마</text></svg>" alt="우리엄마 표지">
+            <div class="info">
+              <div class="title">우리엄마</div>
+              <div class="author">Anthony Browne</div>
+              <div class="call">단서 포인트 · 강한 이미지 비유 · 반복되는 시각 장치 · 익숙함 속 낯선 재미</div>
+            </div>
+          </div>
+
+          <div class="card" onclick="goLibrary('꿈꾸는 윌리')">
+            <img class="cover" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='192' viewBox='0 0 140 192'><rect width='140' height='192' rx='8' fill='%23141210'/><rect x='9' y='9' width='122' height='174' rx='6' fill='%23e5d7bf'/><circle cx='70' cy='80' r='18' fill='none' stroke='%23b7915d' stroke-width='3'/><path d='M44 122 C58 108, 82 108, 96 122' stroke='%236e2b29' stroke-width='3' fill='none'/><text x='70' y='150' font-size='17' text-anchor='middle' fill='%23261d14' font-family='Georgia' font-weight='700'>꿈꾸는 윌리</text></svg>" alt="꿈꾸는 윌리 표지">
+            <div class="info">
+              <div class="title">꿈꾸는 윌리</div>
+              <div class="author">Anthony Browne</div>
+              <div class="call">단서 포인트 · 상상 속 자아 · 디테일 관찰 재미 · 캐릭터의 상징성</div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -810,31 +931,43 @@ function goLibrary(title){
       <div class="file-chip"><strong>CLUE C</strong>작은 장면에서 커지는 울림</div>
     </div>
 
-    <div class="grid">
-      <div class="card" onclick="goLibrary('우리가 만들어 갈 세상')">
-        <img class="cover" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='192' viewBox='0 0 140 192'><rect width='140' height='192' rx='8' fill='%23141210'/><rect x='9' y='9' width='122' height='174' rx='6' fill='%23e5d7bf'/><circle cx='70' cy='84' r='24' fill='none' stroke='%23152532' stroke-width='3'/><line x1='70' y1='60' x2='70' y2='108' stroke='%23b7915d' stroke-width='2'/><line x1='46' y1='84' x2='94' y2='84' stroke='%23b7915d' stroke-width='2'/><text x='70' y='150' font-size='16' text-anchor='middle' fill='%23261d14' font-family='Georgia' font-weight='700'>우리가 만들어 갈 세상</text></svg>" alt="우리가 만들어 갈 세상 표지">
-        <div class="info">
-          <div class="title">우리가 만들어 갈 세상</div>
-          <div class="author">Oliver Jeffers</div>
-          <div class="call">단서 포인트 · 단순한 선과 구조 · 사색적인 분위기 · 넓게 바라보는 시선</div>
-        </div>
-      </div>
+    <div class="answer-wrap">
+      <button class="answer-toggle" type="button" aria-expanded="false" onclick="toggleAnswer(this)">
+        <span class="toggle-left">
+          <span class="toggle-mini">Reveal Answer</span>
+          <span>정답 확인하기</span>
+        </span>
+        <span class="toggle-icon">+</span>
+      </button>
 
-      <div class="card" onclick="goLibrary('우리는 이 행성에 살고 있어')">
-        <img class="cover" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='192' viewBox='0 0 140 192'><rect width='140' height='192' rx='8' fill='%23141210'/><rect x='9' y='9' width='122' height='174' rx='6' fill='%23e5d7bf'/><circle cx='70' cy='82' r='24' fill='none' stroke='%23152532' stroke-width='3'/><circle cx='62' cy='78' r='4' fill='%23b7915d'/><circle cx='78' cy='90' r='5' fill='%236e2b29'/><text x='70' y='148' font-size='15' text-anchor='middle' fill='%23261d14' font-family='Georgia' font-weight='700'>우리는 이 행성에 살고 있어</text></svg>" alt="우리는 이 행성에 살고 있어 표지">
-        <div class="info">
-          <div class="title">우리는 이 행성에 살고 있어</div>
-          <div class="author">Oliver Jeffers</div>
-          <div class="call">단서 포인트 · 간결한 화면 · 철학적인 메시지 · 담백한 감정 표현</div>
-        </div>
-      </div>
+      <div class="answer-panel">
+        <div class="grid">
+          <div class="card" onclick="goLibrary('우리가 만들어 갈 세상')">
+            <img class="cover" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='192' viewBox='0 0 140 192'><rect width='140' height='192' rx='8' fill='%23141210'/><rect x='9' y='9' width='122' height='174' rx='6' fill='%23e5d7bf'/><circle cx='70' cy='84' r='24' fill='none' stroke='%23152532' stroke-width='3'/><line x1='70' y1='60' x2='70' y2='108' stroke='%23b7915d' stroke-width='2'/><line x1='46' y1='84' x2='94' y2='84' stroke='%23b7915d' stroke-width='2'/><text x='70' y='150' font-size='16' text-anchor='middle' fill='%23261d14' font-family='Georgia' font-weight='700'>우리가 만들어 갈 세상</text></svg>" alt="우리가 만들어 갈 세상 표지">
+            <div class="info">
+              <div class="title">우리가 만들어 갈 세상</div>
+              <div class="author">Oliver Jeffers</div>
+              <div class="call">단서 포인트 · 단순한 선과 구조 · 사색적인 분위기 · 넓게 바라보는 시선</div>
+            </div>
+          </div>
 
-      <div class="card" onclick="goLibrary('책의 아이')">
-        <img class="cover" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='192' viewBox='0 0 140 192'><rect width='140' height='192' rx='8' fill='%23141210'/><rect x='9' y='9' width='122' height='174' rx='6' fill='%23e5d7bf'/><rect x='42' y='54' width='56' height='40' rx='3' fill='none' stroke='%23b7915d' stroke-width='3'/><line x1='70' y1='54' x2='70' y2='94' stroke='%23b7915d' stroke-width='2'/><text x='70' y='146' font-size='20' text-anchor='middle' fill='%23261d14' font-family='Georgia' font-weight='700'>책의 아이</text></svg>" alt="책의 아이 표지">
-        <div class="info">
-          <div class="title">책의 아이</div>
-          <div class="author">Oliver Jeffers</div>
-          <div class="call">단서 포인트 · 절제된 화면 구성 · 상징적인 오브제 · 조용한 울림이 있는 장면</div>
+          <div class="card" onclick="goLibrary('우리는 이 행성에 살고 있어')">
+            <img class="cover" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='192' viewBox='0 0 140 192'><rect width='140' height='192' rx='8' fill='%23141210'/><rect x='9' y='9' width='122' height='174' rx='6' fill='%23e5d7bf'/><circle cx='70' cy='82' r='24' fill='none' stroke='%23152532' stroke-width='3'/><circle cx='62' cy='78' r='4' fill='%23b7915d'/><circle cx='78' cy='90' r='5' fill='%236e2b29'/><text x='70' y='148' font-size='15' text-anchor='middle' fill='%23261d14' font-family='Georgia' font-weight='700'>우리는 이 행성에 살고 있어</text></svg>" alt="우리는 이 행성에 살고 있어 표지">
+            <div class="info">
+              <div class="title">우리는 이 행성에 살고 있어</div>
+              <div class="author">Oliver Jeffers</div>
+              <div class="call">단서 포인트 · 간결한 화면 · 철학적인 메시지 · 담백한 감정 표현</div>
+            </div>
+          </div>
+
+          <div class="card" onclick="goLibrary('책의 아이')">
+            <img class="cover" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='192' viewBox='0 0 140 192'><rect width='140' height='192' rx='8' fill='%23141210'/><rect x='9' y='9' width='122' height='174' rx='6' fill='%23e5d7bf'/><rect x='42' y='54' width='56' height='40' rx='3' fill='none' stroke='%23b7915d' stroke-width='3'/><line x1='70' y1='54' x2='70' y2='94' stroke='%23b7915d' stroke-width='2'/><text x='70' y='146' font-size='20' text-anchor='middle' fill='%23261d14' font-family='Georgia' font-weight='700'>책의 아이</text></svg>" alt="책의 아이 표지">
+            <div class="info">
+              <div class="title">책의 아이</div>
+              <div class="author">Oliver Jeffers</div>
+              <div class="call">단서 포인트 · 절제된 화면 구성 · 상징적인 오브제 · 조용한 울림이 있는 장면</div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
