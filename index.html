@@ -269,9 +269,11 @@ body::after{
   font-family:"Hahmlet", serif;
 }
 
-.case-note .no-break{
+.case-note .tight-line{
+  display:inline-block;
   white-space:nowrap;
-  letter-spacing:-.03em;
+  letter-spacing:-.08em;
+  font-size:14.2px;
 }
 
 /* Notice */
@@ -618,14 +620,25 @@ body::after{
 }
 
 .call{
+  display:flex;
+  align-items:flex-start;
+  gap:8px;
   color:var(--text-soft);
   font-size:13px;
   line-height:1.6;
 }
 
-.call strong{
-  color:var(--paper-soft);
-  font-weight:700;
+.call-icon{
+  flex:0 0 auto;
+  width:16px;
+  height:16px;
+  margin-top:2px;
+  color:var(--gold);
+  opacity:.95;
+}
+
+.call-text{
+  display:block;
 }
 
 /* footer memo */
@@ -641,12 +654,22 @@ body::after{
 }
 
 .footer-note-title{
+  display:flex;
+  align-items:center;
+  gap:8px;
   margin:0 0 10px;
   font-family:"Hahmlet", serif;
   font-size:17px;
   font-weight:700;
   color:#3e3023;
   line-height:1.5;
+}
+
+.footer-note-icon{
+  width:18px;
+  height:18px;
+  flex:0 0 auto;
+  color:#5e4b36;
 }
 
 .footer-note p{
@@ -691,6 +714,11 @@ body::after{
 
   .case-note p{
     font-size:14.5px;
+  }
+
+  .case-note .tight-line{
+    font-size:13.2px;
+    letter-spacing:-.1em;
   }
 
   .notice{
@@ -760,9 +788,9 @@ body::after{
     font-size:12.5px;
   }
 
-  .case-note .no-break{
-    white-space:normal;
-    letter-spacing:-.02em;
+  .case-note .tight-line{
+    font-size:12.5px;
+    letter-spacing:-.11em;
   }
 }
 </style>
@@ -849,7 +877,7 @@ document.addEventListener('DOMContentLoaded', function(){
       <h3 class="case-note-title">탐정 수사 지령</h3>
       <p>
         이 전시에는<br>
-        <span class="no-break">비슷한 그림 스타일의 그림책이 3권씩 숨어있습니다.</span>
+        <span class="tight-line">비슷한 그림 스타일의 그림책 3권이 숨어있습니다.</span>
       </p>
       <p style="margin-top:10px;">
         그림책을 자세히 살펴보고<br>
@@ -897,7 +925,14 @@ document.addEventListener('DOMContentLoaded', function(){
             <div class="info">
               <div class="title">간질간질</div>
               <div class="author">Seohyun</div>
-              <div class="call"><strong>청구기호</strong> · P 813.8 서94ㄱ</div>
+              <div class="call">
+                <svg class="call-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M7 3.75h7.5L19 8.25v10A1.75 1.75 0 0 1 17.25 20h-10.5A1.75 1.75 0 0 1 5 18.25v-12.75A1.75 1.75 0 0 1 6.75 3.75H7Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/>
+                  <path d="M14.5 3.75v4a.75.75 0 0 0 .75.75h3.75" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M8.5 11h7M8.5 14h7M8.5 17h4.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
+                </svg>
+                <span class="call-text">P 813.8 서94ㄱ</span>
+              </div>
             </div>
           </div>
 
@@ -907,7 +942,14 @@ document.addEventListener('DOMContentLoaded', function(){
             <div class="info">
               <div class="title">호라이</div>
               <div class="author">Seohyun</div>
-              <div class="call"><strong>청구기호</strong> · P 813.8 서94ㅎ</div>
+              <div class="call">
+                <svg class="call-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M7 3.75h7.5L19 8.25v10A1.75 1.75 0 0 1 17.25 20h-10.5A1.75 1.75 0 0 1 5 18.25v-12.75A1.75 1.75 0 0 1 6.75 3.75H7Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/>
+                  <path d="M14.5 3.75v4a.75.75 0 0 0 .75.75h3.75" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M8.5 11h7M8.5 14h7M8.5 17h4.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
+                </svg>
+                <span class="call-text">P 813.8 서94ㅎ</span>
+              </div>
             </div>
           </div>
 
@@ -917,7 +959,14 @@ document.addEventListener('DOMContentLoaded', function(){
             <div class="info">
               <div class="title">호랭떡집</div>
               <div class="author">Seohyun</div>
-              <div class="call"><strong>청구기호</strong> · P 813.8 서94호ㄹ</div>
+              <div class="call">
+                <svg class="call-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M7 3.75h7.5L19 8.25v10A1.75 1.75 0 0 1 17.25 20h-10.5A1.75 1.75 0 0 1 5 18.25v-12.75A1.75 1.75 0 0 1 6.75 3.75H7Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/>
+                  <path d="M14.5 3.75v4a.75.75 0 0 0 .75.75h3.75" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M8.5 11h7M8.5 14h7M8.5 17h4.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
+                </svg>
+                <span class="call-text">P 813.8 서94호ㄹ</span>
+              </div>
             </div>
           </div>
         </div>
@@ -960,7 +1009,14 @@ document.addEventListener('DOMContentLoaded', function(){
             <div class="info">
               <div class="title">메리</div>
               <div class="author">Ahn Nyeongdal</div>
-              <div class="call"><strong>청구기호</strong> · P 813.8 안194ㅁ</div>
+              <div class="call">
+                <svg class="call-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M7 3.75h7.5L19 8.25v10A1.75 1.75 0 0 1 17.25 20h-10.5A1.75 1.75 0 0 1 5 18.25v-12.75A1.75 1.75 0 0 1 6.75 3.75H7Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/>
+                  <path d="M14.5 3.75v4a.75.75 0 0 0 .75.75h3.75" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M8.5 11h7M8.5 14h7M8.5 17h4.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
+                </svg>
+                <span class="call-text">P 813.8 안194ㅁ</span>
+              </div>
             </div>
           </div>
 
@@ -970,7 +1026,14 @@ document.addEventListener('DOMContentLoaded', function(){
             <div class="info">
               <div class="title">왜냐면</div>
               <div class="author">Ahn Nyeongdal</div>
-              <div class="call"><strong>청구기호</strong> · P 808.9 책68ㄱ v.40</div>
+              <div class="call">
+                <svg class="call-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M7 3.75h7.5L19 8.25v10A1.75 1.75 0 0 1 17.25 20h-10.5A1.75 1.75 0 0 1 5 18.25v-12.75A1.75 1.75 0 0 1 6.75 3.75H7Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/>
+                  <path d="M14.5 3.75v4a.75.75 0 0 0 .75.75h3.75" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M8.5 11h7M8.5 14h7M8.5 17h4.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
+                </svg>
+                <span class="call-text">P 808.9 책68ㄱ v.40</span>
+              </div>
             </div>
           </div>
 
@@ -980,7 +1043,14 @@ document.addEventListener('DOMContentLoaded', function(){
             <div class="info">
               <div class="title">당근유치원</div>
               <div class="author">Ahn Nyeongdal</div>
-              <div class="call"><strong>청구기호</strong> · P 813.8 안194ㄷ</div>
+              <div class="call">
+                <svg class="call-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M7 3.75h7.5L19 8.25v10A1.75 1.75 0 0 1 17.25 20h-10.5A1.75 1.75 0 0 1 5 18.25v-12.75A1.75 1.75 0 0 1 6.75 3.75H7Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/>
+                  <path d="M14.5 3.75v4a.75.75 0 0 0 .75.75h3.75" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M8.5 11h7M8.5 14h7M8.5 17h4.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
+                </svg>
+                <span class="call-text">P 813.8 안194ㄷ</span>
+              </div>
             </div>
           </div>
         </div>
@@ -1023,7 +1093,14 @@ document.addEventListener('DOMContentLoaded', function(){
             <div class="info">
               <div class="title">돼지책</div>
               <div class="author">Anthony Browne</div>
-              <div class="call"><strong>청구기호</strong> · P 808.9 웅78ㅅ v.1</div>
+              <div class="call">
+                <svg class="call-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M7 3.75h7.5L19 8.25v10A1.75 1.75 0 0 1 17.25 20h-10.5A1.75 1.75 0 0 1 5 18.25v-12.75A1.75 1.75 0 0 1 6.75 3.75H7Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/>
+                  <path d="M14.5 3.75v4a.75.75 0 0 0 .75.75h3.75" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M8.5 11h7M8.5 14h7M8.5 17h4.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
+                </svg>
+                <span class="call-text">P 808.9 웅78ㅅ v.1</span>
+              </div>
             </div>
           </div>
 
@@ -1033,7 +1110,14 @@ document.addEventListener('DOMContentLoaded', function(){
             <div class="info">
               <div class="title">우리엄마</div>
               <div class="author">Anthony Browne</div>
-              <div class="call"><strong>청구기호</strong> · P 808.9 웅78ㅅ v.16</div>
+              <div class="call">
+                <svg class="call-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M7 3.75h7.5L19 8.25v10A1.75 1.75 0 0 1 17.25 20h-10.5A1.75 1.75 0 0 1 5 18.25v-12.75A1.75 1.75 0 0 1 6.75 3.75H7Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/>
+                  <path d="M14.5 3.75v4a.75.75 0 0 0 .75.75h3.75" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M8.5 11h7M8.5 14h7M8.5 17h4.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
+                </svg>
+                <span class="call-text">P 808.9 웅78ㅅ v.16</span>
+              </div>
             </div>
           </div>
 
@@ -1043,7 +1127,14 @@ document.addEventListener('DOMContentLoaded', function(){
             <div class="info">
               <div class="title">꿈꾸는 윌리</div>
               <div class="author">Anthony Browne</div>
-              <div class="call"><strong>청구기호</strong> · P 808.9 웅78ㅅ v.17</div>
+              <div class="call">
+                <svg class="call-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M7 3.75h7.5L19 8.25v10A1.75 1.75 0 0 1 17.25 20h-10.5A1.75 1.75 0 0 1 5 18.25v-12.75A1.75 1.75 0 0 1 6.75 3.75H7Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/>
+                  <path d="M14.5 3.75v4a.75.75 0 0 0 .75.75h3.75" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M8.5 11h7M8.5 14h7M8.5 17h4.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
+                </svg>
+                <span class="call-text">P 808.9 웅78ㅅ v.17</span>
+              </div>
             </div>
           </div>
         </div>
@@ -1086,7 +1177,14 @@ document.addEventListener('DOMContentLoaded', function(){
             <div class="info">
               <div class="title">우리가 만들어갈 세상</div>
               <div class="author">Oliver Jeffers</div>
-              <div class="call"><strong>청구기호</strong> · P 843 제894ㅇ</div>
+              <div class="call">
+                <svg class="call-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M7 3.75h7.5L19 8.25v10A1.75 1.75 0 0 1 17.25 20h-10.5A1.75 1.75 0 0 1 5 18.25v-12.75A1.75 1.75 0 0 1 6.75 3.75H7Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/>
+                  <path d="M14.5 3.75v4a.75.75 0 0 0 .75.75h3.75" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M8.5 11h7M8.5 14h7M8.5 17h4.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
+                </svg>
+                <span class="call-text">P 843 제894ㅇ</span>
+              </div>
             </div>
           </div>
 
@@ -1096,7 +1194,14 @@ document.addEventListener('DOMContentLoaded', function(){
             <div class="info">
               <div class="title">우리는 이 행성에 살고있어</div>
               <div class="author">Oliver Jeffers</div>
-              <div class="call"><strong>청구기호</strong> · P 450 제894ㅇ</div>
+              <div class="call">
+                <svg class="call-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M7 3.75h7.5L19 8.25v10A1.75 1.75 0 0 1 17.25 20h-10.5A1.75 1.75 0 0 1 5 18.25v-12.75A1.75 1.75 0 0 1 6.75 3.75H7Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/>
+                  <path d="M14.5 3.75v4a.75.75 0 0 0 .75.75h3.75" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M8.5 11h7M8.5 14h7M8.5 17h4.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
+                </svg>
+                <span class="call-text">P 450 제894ㅇ</span>
+              </div>
             </div>
           </div>
 
@@ -1106,7 +1211,14 @@ document.addEventListener('DOMContentLoaded', function(){
             <div class="info">
               <div class="title">책의 아이</div>
               <div class="author">Oliver Jeffers</div>
-              <div class="call"><strong>청구기호</strong> · P 808.9 비295ㄱ v.249</div>
+              <div class="call">
+                <svg class="call-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M7 3.75h7.5L19 8.25v10A1.75 1.75 0 0 1 17.25 20h-10.5A1.75 1.75 0 0 1 5 18.25v-12.75A1.75 1.75 0 0 1 6.75 3.75H7Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/>
+                  <path d="M14.5 3.75v4a.75.75 0 0 0 .75.75h3.75" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M8.5 11h7M8.5 14h7M8.5 17h4.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
+                </svg>
+                <span class="call-text">P 808.9 비295ㄱ v.249</span>
+              </div>
             </div>
           </div>
         </div>
@@ -1115,10 +1227,18 @@ document.addEventListener('DOMContentLoaded', function(){
   </section>
 
   <div class="footer-note">
-    <div class="footer-note-title">탐정수사 팁</div>
+    <div class="footer-note-title">
+      <svg class="footer-note-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <circle cx="11" cy="11" r="6.5" stroke="currentColor" stroke-width="1.9"/>
+        <path d="M16 16l4 4" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/>
+      </svg>
+      <span>탐정수사 팁</span>
+    </div>
     <p>
-      같은 작가의 책을 나란히 놓고 보면 색감, 캐릭터 표정, 배경 처리, 장면 전환 방식이 조금씩 닮아 있습니다.
-      한 권씩 읽고 끝내지 말고, 세 권을 비교하며 작가만의 흔적을 찾아보세요.
+      같은 작가의 책을 나란히 놓고 보면 색감, 캐릭터 표정,<br>
+      배경 처리, 장면 전환 방식이 조금씩 닮아 있습니다.<br>
+      한 권씩 읽고 끝내지 말고, 세 권을 비교하며 작가만의 흔적을<br>
+      찾아보세요.
     </p>
   </div>
 
