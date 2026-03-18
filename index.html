@@ -30,10 +30,12 @@
   --card:rgba(14,18,23,0.82);
   --card-2:rgba(22,29,37,0.88);
   --shadow:0 18px 40px rgba(0,0,0,0.35);
+  --shadow-soft:0 10px 24px rgba(0,0,0,.24);
 }
 
 *{
   box-sizing:border-box;
+  -webkit-tap-highlight-color:transparent;
 }
 
 html{
@@ -68,10 +70,21 @@ body::before{
   mix-blend-mode:screen;
 }
 
+body::after{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  background:
+    radial-gradient(circle at 20% 18%, rgba(215,178,121,.045), transparent 14%),
+    radial-gradient(circle at 80% 12%, rgba(255,255,255,.035), transparent 10%),
+    radial-gradient(circle at 60% 72%, rgba(215,178,121,.03), transparent 12%);
+}
+
 .wrap{
   max-width:760px;
   margin:auto;
-  padding:28px 16px 72px;
+  padding:24px 16px 72px;
   position:relative;
   z-index:1;
 }
@@ -80,14 +93,14 @@ body::before{
 .hero{
   position:relative;
   overflow:hidden;
-  border-radius:20px;
+  border-radius:22px;
   border:1px solid var(--line);
   box-shadow:var(--shadow);
   background:
     linear-gradient(rgba(8,11,15,.56), rgba(8,11,15,.84)),
     radial-gradient(circle at top right, rgba(215,178,121,.08), transparent 28%),
     linear-gradient(180deg, rgba(32,40,52,.92), rgba(10,14,19,.96));
-  padding:28px 18px 44px;
+  padding:28px 18px 24px;
 }
 
 .hero::before{
@@ -125,7 +138,7 @@ body::before{
   align-items:center;
   gap:10px;
   padding:8px 14px;
-  margin-bottom:36px;
+  margin-bottom:30px;
   border-radius:999px;
   border:1px solid rgba(215,178,121,.35);
   background:rgba(74,23,23,.28);
@@ -147,7 +160,7 @@ body::before{
 .hero-head{
   position:relative;
   z-index:1;
-  margin-bottom:34px;
+  margin-bottom:26px;
 }
 
 .hero-row-top{
@@ -195,8 +208,8 @@ body::before{
   position:relative;
   z-index:1;
   max-width:38ch;
-  font-size:16.8px;
-  line-height:1.92;
+  font-size:16.4px;
+  line-height:1.9;
   color:var(--text-soft);
   letter-spacing:-.012em;
   word-break:keep-all;
@@ -204,7 +217,7 @@ body::before{
 }
 
 .description p{
-  margin:0 0 22px;
+  margin:0 0 18px;
 }
 
 .description p:last-child{
@@ -214,6 +227,63 @@ body::before{
 .description .key{
   color:var(--paper-soft);
   font-weight:700;
+}
+
+/* progress */
+.progress-card{
+  margin-top:20px;
+  border-radius:16px;
+  border:1px solid rgba(215,178,121,.18);
+  background:linear-gradient(180deg, rgba(18,25,33,.75), rgba(10,13,18,.82));
+  padding:14px 14px 12px;
+  box-shadow:var(--shadow-soft);
+}
+
+.progress-top{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  margin-bottom:8px;
+}
+
+.progress-title{
+  font-family:"Cinzel", serif;
+  color:var(--gold);
+  font-size:11px;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+}
+
+.progress-value{
+  color:var(--text-soft);
+  font-size:12px;
+  font-weight:700;
+}
+
+.progress-track{
+  width:100%;
+  height:8px;
+  border-radius:999px;
+  background:rgba(255,255,255,.07);
+  overflow:hidden;
+  position:relative;
+}
+
+.progress-fill{
+  width:0%;
+  height:100%;
+  border-radius:inherit;
+  background:linear-gradient(90deg, var(--gold-soft), var(--gold), #e5c48d);
+  box-shadow:0 0 18px rgba(215,178,121,.28);
+  transition:width .35s ease;
+}
+
+.progress-hint{
+  margin-top:8px;
+  color:var(--muted);
+  font-size:12px;
+  line-height:1.6;
 }
 
 /* Intro paper panel */
@@ -258,7 +328,7 @@ body::before{
 
 /* Notice */
 .notice{
-  margin:40px 0 34px;
+  margin:24px 0 34px;
   padding:14px 16px;
   border-radius:14px;
   border:1px dashed var(--line-strong);
@@ -269,9 +339,27 @@ body::before{
   box-shadow:var(--shadow);
 }
 
+/* Mission intro */
+.mission-intro{
+  margin-bottom:10px;
+  padding:0 2px;
+  color:var(--text-soft);
+  font-size:14px;
+  line-height:1.8;
+  text-align:center;
+}
+
 /* Section */
 .section{
-  margin-top:60px;
+  margin-top:58px;
+  opacity:0;
+  transform:translateY(22px);
+  transition:opacity .65s ease, transform .65s ease;
+}
+
+.section.show{
+  opacity:1;
+  transform:none;
 }
 
 .section:first-of-type{
@@ -372,6 +460,8 @@ body::before{
 }
 
 .answer-toggle{
+  position:relative;
+  overflow:hidden;
   width:100%;
   display:flex;
   align-items:center;
@@ -391,9 +481,26 @@ body::before{
   box-shadow:0 12px 24px rgba(0,0,0,.18);
 }
 
+.answer-toggle::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(110deg, transparent 20%, rgba(215,178,121,.16) 50%, transparent 80%);
+  opacity:0;
+  transition:opacity .25s ease;
+}
+
 .answer-toggle:hover{
   border-color:rgba(215,178,121,.48);
   transform:translateY(-1px);
+}
+
+.answer-toggle:active{
+  transform:scale(.99);
+}
+
+.answer-toggle:active::after{
+  opacity:1;
 }
 
 .answer-toggle .toggle-left{
@@ -420,7 +527,7 @@ body::before{
   border:1px solid rgba(215,178,121,.24);
   color:var(--gold);
   font-size:15px;
-  transition:transform .2s ease;
+  transition:transform .2s ease, background .2s ease;
 }
 
 .answer-panel{
@@ -434,6 +541,7 @@ body::before{
 
 .answer-wrap.open .toggle-icon{
   transform:rotate(45deg);
+  background:rgba(215,178,121,.08);
 }
 
 /* cards */
@@ -451,23 +559,23 @@ body::before{
   padding:12px;
   border-radius:16px;
   cursor:pointer;
-  transition:transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+  transition:transform .22s ease, box-shadow .22s ease, border-color .22s ease, background .22s ease;
   background:
     linear-gradient(180deg, rgba(32,40,52,.88), rgba(11,14,19,.94));
   border:1px solid var(--line);
   box-shadow:0 12px 24px rgba(0,0,0,.18);
   overflow:hidden;
+  isolation:isolate;
 }
 
 .card::before{
   content:"";
   position:absolute;
-  top:0;
-  right:0;
-  width:104px;
-  height:100%;
-  background:linear-gradient(90deg, transparent, rgba(215,178,121,.03));
-  pointer-events:none;
+  inset:0;
+  background:linear-gradient(115deg, transparent 20%, rgba(215,178,121,.14) 50%, transparent 80%);
+  opacity:0;
+  transition:opacity .28s ease;
+  z-index:0;
 }
 
 .card::after{
@@ -479,12 +587,58 @@ body::before{
   font-size:10px;
   color:rgba(215,178,121,.34);
   letter-spacing:.14em;
+  z-index:1;
 }
 
 .card:hover{
   transform:translateY(-2px);
   border-color:rgba(215,178,121,.48);
   box-shadow:0 16px 30px rgba(0,0,0,.28);
+}
+
+.card:active{
+  transform:scale(.98);
+}
+
+.card:active::before{
+  opacity:1;
+}
+
+.card.found{
+  border-color:rgba(215,178,121,.75);
+  box-shadow:
+    0 0 0 1px rgba(215,178,121,.36),
+    0 16px 30px rgba(0,0,0,.28);
+  background:
+    linear-gradient(180deg, rgba(49,40,31,.84), rgba(12,14,19,.96));
+}
+
+.card.found::before{
+  opacity:.35;
+}
+
+.found-badge{
+  position:absolute;
+  left:12px;
+  top:10px;
+  padding:4px 8px;
+  border-radius:999px;
+  background:rgba(215,178,121,.14);
+  border:1px solid rgba(215,178,121,.26);
+  color:var(--gold);
+  font-family:"Cinzel", serif;
+  font-size:10px;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  opacity:0;
+  transform:translateY(-4px);
+  transition:all .22s ease;
+  z-index:2;
+}
+
+.card.found .found-badge{
+  opacity:1;
+  transform:none;
 }
 
 .cover{
@@ -496,6 +650,8 @@ body::before{
   border:1px solid rgba(215,178,121,.22);
   background:#171311;
   box-shadow:0 8px 16px rgba(0,0,0,.18);
+  position:relative;
+  z-index:1;
 }
 
 .info{
@@ -504,6 +660,8 @@ body::before{
   gap:4px;
   min-width:0;
   padding-right:52px;
+  position:relative;
+  z-index:1;
 }
 
 .title{
@@ -561,12 +719,12 @@ body::before{
   }
 
   .hero{
-    padding:22px 14px 36px;
+    padding:22px 14px 20px;
     border-radius:18px;
   }
 
   .hero-tag{
-    margin-bottom:28px;
+    margin-bottom:26px;
     font-size:11px;
     gap:8px;
   }
@@ -580,11 +738,11 @@ body::before{
   }
 
   .hero-head{
-    margin-bottom:26px;
+    margin-bottom:22px;
   }
 
   .description{
-    font-size:15.6px;
+    font-size:15.4px;
     line-height:1.88;
   }
 
@@ -593,7 +751,7 @@ body::before{
   }
 
   .notice{
-    margin:34px 0 28px;
+    margin:22px 0 28px;
   }
 
   .section{
@@ -607,11 +765,15 @@ body::before{
   .section-head h2{
     font-size:23px;
   }
+
+  .answer-toggle{
+    font-size:15px;
+  }
 }
 
 @media (max-width:420px){
   .hero{
-    padding:20px 12px 32px;
+    padding:20px 12px 18px;
   }
 
   .hero::after{
@@ -622,7 +784,7 @@ body::before{
 
   .hero-tag{
     padding:7px 10px;
-    margin-bottom:24px;
+    margin-bottom:22px;
   }
 
   .hero-line1{
@@ -654,23 +816,67 @@ body::before{
   .call{
     font-size:12.5px;
   }
+
+  .progress-card{
+    padding:13px 12px 11px;
+  }
 }
 </style>
 
 <script>
-function goLibrary(title){
-  try{
-    navigator.clipboard.writeText(title)
-  }catch(e){}
-  const query = encodeURIComponent(title)
-  window.open(`https://umyeon.seocholib.or.kr/TotalSearch?keyword=${query}`, '_blank')
-}
+document.addEventListener('DOMContentLoaded', function(){
+  const sections = document.querySelectorAll('.section');
+  const wraps = document.querySelectorAll('.answer-wrap');
+  const progressFill = document.querySelector('.progress-fill');
+  const progressValue = document.querySelector('.progress-value');
+  const progressHint = document.querySelector('.progress-hint');
 
-function toggleAnswer(button){
-  const wrap = button.closest('.answer-wrap');
-  const isOpen = wrap.classList.toggle('open');
-  button.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
-}
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting){
+        entry.target.classList.add('show');
+      }
+    });
+  }, { threshold: 0.18 });
+
+  sections.forEach(sec => observer.observe(sec));
+
+  updateProgress();
+
+  function updateProgress(){
+    const total = wraps.length;
+    const opened = document.querySelectorAll('.answer-wrap.open').length;
+    const percent = Math.round((opened / total) * 100);
+
+    if(progressFill) progressFill.style.width = percent + '%';
+    if(progressValue) progressValue.textContent = opened + ' / ' + total + ' 사건 공개';
+    if(progressHint){
+      progressHint.textContent = opened === total
+        ? '모든 사건 파일을 확인했어요. 이제 작가별 그림의 흔적을 비교해 보세요.'
+        : '정답 확인하기를 눌러 사건 파일을 하나씩 열어 보세요.';
+    }
+  }
+
+  window.toggleAnswer = function(button){
+    const wrap = button.closest('.answer-wrap');
+    const isOpen = wrap.classList.toggle('open');
+    button.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    updateProgress();
+  }
+
+  window.goLibrary = function(title, el){
+    try{
+      navigator.clipboard.writeText(title);
+    }catch(e){}
+
+    if(el){
+      el.classList.add('found');
+    }
+
+    const query = encodeURIComponent(title);
+    window.open(`https://umyeon.seocholib.or.kr/TotalSearch?keyword=${query}`, '_blank');
+  }
+});
 </script>
 </head>
 
@@ -716,6 +922,17 @@ function toggleAnswer(button){
       </p>
     </div>
 
+    <div class="progress-card" aria-label="탐정 진행도">
+      <div class="progress-top">
+        <div class="progress-title">Investigation Progress</div>
+        <div class="progress-value">0 / 4 사건 공개</div>
+      </div>
+      <div class="progress-track" aria-hidden="true">
+        <div class="progress-fill"></div>
+      </div>
+      <div class="progress-hint">정답 확인하기를 눌러 사건 파일을 하나씩 열어 보세요.</div>
+    </div>
+
     <div class="case-note">
       <h3 class="case-note-title">탐정 수사 지령</h3>
       <p>
@@ -732,6 +949,10 @@ function toggleAnswer(button){
   <div class="notice">
     📌 표지를 클릭하면 책 제목이 복사되고 도서관 검색 페이지로 이동합니다.
   </div>
+
+  <p class="mission-intro">
+    사건 파일을 열고, 표지를 눌러 단서를 수집해 보세요.
+  </p>
 
   <section class="section">
     <div class="section-title">
@@ -762,8 +983,9 @@ function toggleAnswer(button){
 
       <div class="answer-panel">
         <div class="grid">
-          <div class="card" onclick="goLibrary('간질간질')">
-            <img class="cover" src="https://contents.kyobobook.co.kr/sih/fit-in/458x0/pdt/9791160940688.jpg">
+          <div class="card" onclick="goLibrary('간질간질', this)">
+            <span class="found-badge">Found</span>
+            <img class="cover" src="https://contents.kyobobook.co.kr/sih/fit-in/458x0/pdt/9791160940688.jpg" alt="간질간질 표지">
             <div class="info">
               <div class="title">간질간질</div>
               <div class="author">Seohyun</div>
@@ -771,8 +993,9 @@ function toggleAnswer(button){
             </div>
           </div>
 
-          <div class="card" onclick="goLibrary('호라이')">
-            <img class="cover" src="https://contents.kyobobook.co.kr/sih/fit-in/458x0/pdt/9791160947328.jpg">
+          <div class="card" onclick="goLibrary('호라이', this)">
+            <span class="found-badge">Found</span>
+            <img class="cover" src="https://contents.kyobobook.co.kr/sih/fit-in/458x0/pdt/9791160947328.jpg" alt="호라이 표지">
             <div class="info">
               <div class="title">호라이</div>
               <div class="author">Seohyun</div>
@@ -780,8 +1003,9 @@ function toggleAnswer(button){
             </div>
           </div>
 
-          <div class="card" onclick="goLibrary('호랭떡집')">
-            <img class="cover" src="https://contents.kyobobook.co.kr/sih/fit-in/458x0/pdt/9791169811163.jpg">
+          <div class="card" onclick="goLibrary('호랭떡집', this)">
+            <span class="found-badge">Found</span>
+            <img class="cover" src="https://contents.kyobobook.co.kr/sih/fit-in/458x0/pdt/9791169811163.jpg" alt="호랭떡집 표지">
             <div class="info">
               <div class="title">호랭떡집</div>
               <div class="author">Seohyun</div>
@@ -822,8 +1046,9 @@ function toggleAnswer(button){
 
       <div class="answer-panel">
         <div class="grid">
-          <div class="card" onclick="goLibrary('메리')">
-            <img class="cover" src="https://contents.kyobobook.co.kr/sih/fit-in/458x0/pdt/9791160943061.jpg">
+          <div class="card" onclick="goLibrary('메리', this)">
+            <span class="found-badge">Found</span>
+            <img class="cover" src="https://contents.kyobobook.co.kr/sih/fit-in/458x0/pdt/9791160943061.jpg" alt="메리 표지">
             <div class="info">
               <div class="title">메리</div>
               <div class="author">Ahn Nyeongdal</div>
@@ -831,8 +1056,9 @@ function toggleAnswer(button){
             </div>
           </div>
 
-          <div class="card" onclick="goLibrary('왜냐면')">
-            <img class="cover" src="https://contents.kyobobook.co.kr/sih/fit-in/458x0/pdt/9791158360382.jpg">
+          <div class="card" onclick="goLibrary('왜냐면', this)">
+            <span class="found-badge">Found</span>
+            <img class="cover" src="https://contents.kyobobook.co.kr/sih/fit-in/458x0/pdt/9791158360382.jpg" alt="왜냐면 표지">
             <div class="info">
               <div class="title">왜냐면</div>
               <div class="author">Ahn Nyeongdal</div>
@@ -840,8 +1066,9 @@ function toggleAnswer(button){
             </div>
           </div>
 
-          <div class="card" onclick="goLibrary('당근유치원')">
-            <img class="cover" src="https://contents.kyobobook.co.kr/sih/fit-in/458x0/pdt/9788936455484.jpg">
+          <div class="card" onclick="goLibrary('당근유치원', this)">
+            <span class="found-badge">Found</span>
+            <img class="cover" src="https://contents.kyobobook.co.kr/sih/fit-in/458x0/pdt/9788936455484.jpg" alt="당근유치원 표지">
             <div class="info">
               <div class="title">당근유치원</div>
               <div class="author">Ahn Nyeongdal</div>
@@ -882,8 +1109,9 @@ function toggleAnswer(button){
 
       <div class="answer-panel">
         <div class="grid">
-          <div class="card" onclick="goLibrary('돼지책')">
-            <img class="cover" src="https://contents.kyobobook.co.kr/sih/fit-in/458x0/pdt/9788901033518.jpg">
+          <div class="card" onclick="goLibrary('돼지책', this)">
+            <span class="found-badge">Found</span>
+            <img class="cover" src="https://contents.kyobobook.co.kr/sih/fit-in/458x0/pdt/9788901033518.jpg" alt="돼지책 표지">
             <div class="info">
               <div class="title">돼지책</div>
               <div class="author">Anthony Browne</div>
@@ -891,8 +1119,9 @@ function toggleAnswer(button){
             </div>
           </div>
 
-          <div class="card" onclick="goLibrary('우리엄마')">
-            <img class="cover" src="https://contents.kyobobook.co.kr/sih/fit-in/458x0/pdt/9788901047904.jpg">
+          <div class="card" onclick="goLibrary('우리엄마', this)">
+            <span class="found-badge">Found</span>
+            <img class="cover" src="https://contents.kyobobook.co.kr/sih/fit-in/458x0/pdt/9788901047904.jpg" alt="우리엄마 표지">
             <div class="info">
               <div class="title">우리엄마</div>
               <div class="author">Anthony Browne</div>
@@ -900,8 +1129,9 @@ function toggleAnswer(button){
             </div>
           </div>
 
-          <div class="card" onclick="goLibrary('꿈꾸는 윌리')">
-            <img class="cover" src="https://contents.kyobobook.co.kr/sih/fit-in/458x0/pdt/9788901044972.jpg">
+          <div class="card" onclick="goLibrary('꿈꾸는 윌리', this)">
+            <span class="found-badge">Found</span>
+            <img class="cover" src="https://contents.kyobobook.co.kr/sih/fit-in/458x0/pdt/9788901044972.jpg" alt="꿈꾸는 윌리 표지">
             <div class="info">
               <div class="title">꿈꾸는 윌리</div>
               <div class="author">Anthony Browne</div>
@@ -942,8 +1172,9 @@ function toggleAnswer(button){
 
       <div class="answer-panel">
         <div class="grid">
-          <div class="card" onclick="goLibrary('우리가 만들어 갈 세상')">
-            <img class="cover" src="https://contents.kyobobook.co.kr/sih/fit-in/458x0/pdt/9788934990451.jpg">
+          <div class="card" onclick="goLibrary('우리가 만들어 갈 세상', this)">
+            <span class="found-badge">Found</span>
+            <img class="cover" src="https://contents.kyobobook.co.kr/sih/fit-in/458x0/pdt/9788934990451.jpg" alt="우리가 만들어 갈 세상 표지">
             <div class="info">
               <div class="title">우리가 만들어 갈 세상</div>
               <div class="author">Oliver Jeffers</div>
@@ -951,8 +1182,9 @@ function toggleAnswer(button){
             </div>
           </div>
 
-          <div class="card" onclick="goLibrary('우리는 이 행성에 살고 있어')">
-            <img class="cover" src="https://contents.kyobobook.co.kr/sih/fit-in/458x0/pdt/9788934981459.jpg">
+          <div class="card" onclick="goLibrary('우리는 이 행성에 살고 있어', this)">
+            <span class="found-badge">Found</span>
+            <img class="cover" src="https://contents.kyobobook.co.kr/sih/fit-in/458x0/pdt/9788934981459.jpg" alt="우리는 이 행성에 살고 있어 표지">
             <div class="info">
               <div class="title">우리는 이 행성에 살고 있어</div>
               <div class="author">Oliver Jeffers</div>
@@ -960,8 +1192,9 @@ function toggleAnswer(button){
             </div>
           </div>
 
-          <div class="card" onclick="goLibrary('책의 아이')">
-            <img class="cover" src="https://contents.kyobobook.co.kr/sih/fit-in/458x0/pdt/9788949113647.jpg">
+          <div class="card" onclick="goLibrary('책의 아이', this)">
+            <span class="found-badge">Found</span>
+            <img class="cover" src="https://contents.kyobobook.co.kr/sih/fit-in/458x0/pdt/9788949113647.jpg" alt="책의 아이 표지">
             <div class="info">
               <div class="title">책의 아이</div>
               <div class="author">Oliver Jeffers</div>
