@@ -229,63 +229,6 @@ body::after{
   font-weight:700;
 }
 
-/* progress */
-.progress-card{
-  margin-top:20px;
-  border-radius:16px;
-  border:1px solid rgba(215,178,121,.18);
-  background:linear-gradient(180deg, rgba(18,25,33,.75), rgba(10,13,18,.82));
-  padding:14px 14px 12px;
-  box-shadow:var(--shadow-soft);
-}
-
-.progress-top{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:12px;
-  margin-bottom:8px;
-}
-
-.progress-title{
-  font-family:"Cinzel", serif;
-  color:var(--gold);
-  font-size:11px;
-  letter-spacing:.14em;
-  text-transform:uppercase;
-}
-
-.progress-value{
-  color:var(--text-soft);
-  font-size:12px;
-  font-weight:700;
-}
-
-.progress-track{
-  width:100%;
-  height:8px;
-  border-radius:999px;
-  background:rgba(255,255,255,.07);
-  overflow:hidden;
-  position:relative;
-}
-
-.progress-fill{
-  width:0%;
-  height:100%;
-  border-radius:inherit;
-  background:linear-gradient(90deg, var(--gold-soft), var(--gold), #e5c48d);
-  box-shadow:0 0 18px rgba(215,178,121,.28);
-  transition:width .35s ease;
-}
-
-.progress-hint{
-  margin-top:8px;
-  color:var(--muted);
-  font-size:12px;
-  line-height:1.6;
-}
-
 /* Intro paper panel */
 .case-note{
   margin-top:18px;
@@ -326,6 +269,11 @@ body::after{
   font-family:"Hahmlet", serif;
 }
 
+.case-note .no-break{
+  white-space:nowrap;
+  letter-spacing:-.03em;
+}
+
 /* Notice */
 .notice{
   margin:24px 0 34px;
@@ -337,16 +285,6 @@ body::after{
   text-align:center;
   font-size:14px;
   box-shadow:var(--shadow);
-}
-
-/* Mission intro */
-.mission-intro{
-  margin-bottom:10px;
-  padding:0 2px;
-  color:var(--text-soft);
-  font-size:14px;
-  line-height:1.8;
-  text-align:center;
 }
 
 /* Section */
@@ -657,7 +595,7 @@ body::after{
 .info{
   display:flex;
   flex-direction:column;
-  gap:4px;
+  gap:6px;
   min-width:0;
   padding-right:52px;
   position:relative;
@@ -685,6 +623,11 @@ body::after{
   line-height:1.6;
 }
 
+.call strong{
+  color:var(--paper-soft);
+  font-weight:700;
+}
+
 /* footer memo */
 .footer-note{
   margin-top:60px;
@@ -698,12 +641,12 @@ body::after{
 }
 
 .footer-note-title{
-  margin:0 0 8px;
-  font-family:"Cinzel", serif;
-  font-size:12px;
-  color:#5e4b36;
-  letter-spacing:.16em;
-  text-transform:uppercase;
+  margin:0 0 10px;
+  font-family:"Hahmlet", serif;
+  font-size:17px;
+  font-weight:700;
+  color:#3e3023;
+  line-height:1.5;
 }
 
 .footer-note p{
@@ -817,8 +760,9 @@ body::after{
     font-size:12.5px;
   }
 
-  .progress-card{
-    padding:13px 12px 11px;
+  .case-note .no-break{
+    white-space:normal;
+    letter-spacing:-.02em;
   }
 }
 </style>
@@ -826,10 +770,6 @@ body::after{
 <script>
 document.addEventListener('DOMContentLoaded', function(){
   const sections = document.querySelectorAll('.section');
-  const wraps = document.querySelectorAll('.answer-wrap');
-  const progressFill = document.querySelector('.progress-fill');
-  const progressValue = document.querySelector('.progress-value');
-  const progressHint = document.querySelector('.progress-hint');
 
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
@@ -841,27 +781,10 @@ document.addEventListener('DOMContentLoaded', function(){
 
   sections.forEach(sec => observer.observe(sec));
 
-  updateProgress();
-
-  function updateProgress(){
-    const total = wraps.length;
-    const opened = document.querySelectorAll('.answer-wrap.open').length;
-    const percent = Math.round((opened / total) * 100);
-
-    if(progressFill) progressFill.style.width = percent + '%';
-    if(progressValue) progressValue.textContent = opened + ' / ' + total + ' 사건 공개';
-    if(progressHint){
-      progressHint.textContent = opened === total
-        ? '모든 사건 파일을 확인했어요. 이제 작가별 그림의 흔적을 비교해 보세요.'
-        : '정답 확인하기를 눌러 사건 파일을 하나씩 열어 보세요.';
-    }
-  }
-
   window.toggleAnswer = function(button){
     const wrap = button.closest('.answer-wrap');
     const isOpen = wrap.classList.toggle('open');
     button.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
-    updateProgress();
   }
 
   window.goLibrary = function(title, el){
@@ -906,14 +829,14 @@ document.addEventListener('DOMContentLoaded', function(){
       </p>
 
       <p>
-        그림을 자세히 살펴보세요.<br>
-        비슷한 색, 반복되는 캐릭터,<br>
-        숨겨진 단서를 찾을 수 있을까요?
+        그림 속을 자세히 들여다보세요.<br>
+        비슷한 색, 닮은 캐릭터,<br>
+        반복되는 그림이 보이나요?
       </p>
 
       <p>
-        같은 작가의 그림책을 보면<br>
-        그림 속에 작가만의 흔적이 남아 있습니다.
+        그림책을 하나씩 살펴보다 보면<br>
+        닮은 그림들이 보일 거예요.
       </p>
 
       <p>
@@ -922,26 +845,15 @@ document.addEventListener('DOMContentLoaded', function(){
       </p>
     </div>
 
-    <div class="progress-card" aria-label="탐정 진행도">
-      <div class="progress-top">
-        <div class="progress-title">Investigation Progress</div>
-        <div class="progress-value">0 / 4 사건 공개</div>
-      </div>
-      <div class="progress-track" aria-hidden="true">
-        <div class="progress-fill"></div>
-      </div>
-      <div class="progress-hint">정답 확인하기를 눌러 사건 파일을 하나씩 열어 보세요.</div>
-    </div>
-
     <div class="case-note">
       <h3 class="case-note-title">탐정 수사 지령</h3>
       <p>
         이 전시에는<br>
-        비슷한 그림 스타일의 그림책이 3권씩 숨어 있습니다.
+        <span class="no-break">비슷한 그림 스타일의 그림책이 3권씩 숨어있습니다.</span>
       </p>
       <p style="margin-top:10px;">
-        표지를 자세히 살펴보고<br>
-        같은 그림을 그린 책 3권을 찾아보세요!
+        그림책을 자세히 살펴보고<br>
+        같은 작가가 그린 그림책 3권을 찾아보세요!
       </p>
     </div>
   </div>
@@ -949,10 +861,6 @@ document.addEventListener('DOMContentLoaded', function(){
   <div class="notice">
     📌 표지를 클릭하면 책 제목이 복사되고 도서관 검색 페이지로 이동합니다.
   </div>
-
-  <p class="mission-intro">
-    사건 파일을 열고, 표지를 눌러 단서를 수집해 보세요.
-  </p>
 
   <section class="section">
     <div class="section-title">
@@ -989,7 +897,7 @@ document.addEventListener('DOMContentLoaded', function(){
             <div class="info">
               <div class="title">간질간질</div>
               <div class="author">Seohyun</div>
-              <div class="call">단서 포인트 · 익살스러운 표정 · 생동감 있는 움직임 · 상상력 가득한 전개</div>
+              <div class="call"><strong>청구기호</strong> · P 813.8 서94ㄱ</div>
             </div>
           </div>
 
@@ -999,7 +907,7 @@ document.addEventListener('DOMContentLoaded', function(){
             <div class="info">
               <div class="title">호라이</div>
               <div class="author">Seohyun</div>
-              <div class="call">단서 포인트 · 과장된 장면 연출 · 개성 강한 캐릭터 · 장난기 있는 화면 구성</div>
+              <div class="call"><strong>청구기호</strong> · P 813.8 서94ㅎ</div>
             </div>
           </div>
 
@@ -1009,7 +917,7 @@ document.addEventListener('DOMContentLoaded', function(){
             <div class="info">
               <div class="title">호랭떡집</div>
               <div class="author">Seohyun</div>
-              <div class="call">단서 포인트 · 전통적 소재의 변주 · 유쾌한 상상 · 이야기 안의 익살스러운 긴장감</div>
+              <div class="call"><strong>청구기호</strong> · P 813.8 서94호ㄹ</div>
             </div>
           </div>
         </div>
@@ -1052,7 +960,7 @@ document.addEventListener('DOMContentLoaded', function(){
             <div class="info">
               <div class="title">메리</div>
               <div class="author">Ahn Nyeongdal</div>
-              <div class="call">단서 포인트 · 따뜻한 시선 · 생활감 있는 공간 · 포근한 감정의 결</div>
+              <div class="call"><strong>청구기호</strong> · P 813.8 안194ㅁ</div>
             </div>
           </div>
 
@@ -1062,7 +970,7 @@ document.addEventListener('DOMContentLoaded', function(){
             <div class="info">
               <div class="title">왜냐면</div>
               <div class="author">Ahn Nyeongdal</div>
-              <div class="call">단서 포인트 · 부드러운 이야기 흐름 · 아이의 마음에 가까운 질문 · 다정한 상상력</div>
+              <div class="call"><strong>청구기호</strong> · P 808.9 책68ㄱ v.40</div>
             </div>
           </div>
 
@@ -1072,7 +980,7 @@ document.addEventListener('DOMContentLoaded', function(){
             <div class="info">
               <div class="title">당근유치원</div>
               <div class="author">Ahn Nyeongdal</div>
-              <div class="call">단서 포인트 · 친근한 캐릭터 · 편안한 색감 · 일상 속 환상과 유머</div>
+              <div class="call"><strong>청구기호</strong> · P 813.8 안194ㄷ</div>
             </div>
           </div>
         </div>
@@ -1115,7 +1023,7 @@ document.addEventListener('DOMContentLoaded', function(){
             <div class="info">
               <div class="title">돼지책</div>
               <div class="author">Anthony Browne</div>
-              <div class="call">단서 포인트 · 상징적인 그림 · 숨은 의미 찾기 · 현실과 환상이 겹치는 장면</div>
+              <div class="call"><strong>청구기호</strong> · P 808.9 웅78ㅅ v.1</div>
             </div>
           </div>
 
@@ -1125,7 +1033,7 @@ document.addEventListener('DOMContentLoaded', function(){
             <div class="info">
               <div class="title">우리엄마</div>
               <div class="author">Anthony Browne</div>
-              <div class="call">단서 포인트 · 강한 이미지 비유 · 반복되는 시각 장치 · 익숙함 속 낯선 재미</div>
+              <div class="call"><strong>청구기호</strong> · P 808.9 웅78ㅅ v.16</div>
             </div>
           </div>
 
@@ -1135,7 +1043,7 @@ document.addEventListener('DOMContentLoaded', function(){
             <div class="info">
               <div class="title">꿈꾸는 윌리</div>
               <div class="author">Anthony Browne</div>
-              <div class="call">단서 포인트 · 상상 속 자아 · 디테일 관찰 재미 · 캐릭터의 상징성</div>
+              <div class="call"><strong>청구기호</strong> · P 808.9 웅78ㅅ v.17</div>
             </div>
           </div>
         </div>
@@ -1172,23 +1080,23 @@ document.addEventListener('DOMContentLoaded', function(){
 
       <div class="answer-panel">
         <div class="grid">
-          <div class="card" onclick="goLibrary('우리가 만들어 갈 세상', this)">
+          <div class="card" onclick="goLibrary('우리가 만들어갈 세상', this)">
             <span class="found-badge">Found</span>
-            <img class="cover" src="https://contents.kyobobook.co.kr/sih/fit-in/458x0/pdt/9788934990451.jpg" alt="우리가 만들어 갈 세상 표지">
+            <img class="cover" src="https://contents.kyobobook.co.kr/sih/fit-in/458x0/pdt/9788934990451.jpg" alt="우리가 만들어갈 세상 표지">
             <div class="info">
-              <div class="title">우리가 만들어 갈 세상</div>
+              <div class="title">우리가 만들어갈 세상</div>
               <div class="author">Oliver Jeffers</div>
-              <div class="call">단서 포인트 · 단순한 선과 구조 · 사색적인 분위기 · 넓게 바라보는 시선</div>
+              <div class="call"><strong>청구기호</strong> · P 843 제894ㅇ</div>
             </div>
           </div>
 
-          <div class="card" onclick="goLibrary('우리는 이 행성에 살고 있어', this)">
+          <div class="card" onclick="goLibrary('우리는 이 행성에 살고있어', this)">
             <span class="found-badge">Found</span>
-            <img class="cover" src="https://contents.kyobobook.co.kr/sih/fit-in/458x0/pdt/9788934981459.jpg" alt="우리는 이 행성에 살고 있어 표지">
+            <img class="cover" src="https://contents.kyobobook.co.kr/sih/fit-in/458x0/pdt/9788934981459.jpg" alt="우리는 이 행성에 살고있어 표지">
             <div class="info">
-              <div class="title">우리는 이 행성에 살고 있어</div>
+              <div class="title">우리는 이 행성에 살고있어</div>
               <div class="author">Oliver Jeffers</div>
-              <div class="call">단서 포인트 · 간결한 화면 · 철학적인 메시지 · 담백한 감정 표현</div>
+              <div class="call"><strong>청구기호</strong> · P 450 제894ㅇ</div>
             </div>
           </div>
 
@@ -1198,7 +1106,7 @@ document.addEventListener('DOMContentLoaded', function(){
             <div class="info">
               <div class="title">책의 아이</div>
               <div class="author">Oliver Jeffers</div>
-              <div class="call">단서 포인트 · 절제된 화면 구성 · 상징적인 오브제 · 조용한 울림이 있는 장면</div>
+              <div class="call"><strong>청구기호</strong> · P 808.9 비295ㄱ v.249</div>
             </div>
           </div>
         </div>
@@ -1207,8 +1115,11 @@ document.addEventListener('DOMContentLoaded', function(){
   </section>
 
   <div class="footer-note">
-    <div class="footer-note-title">Investigation Memo</div>
-    <p>🔎 탐정 수사 팁 · 같은 작가의 책을 나란히 놓고 보면 색감, 캐릭터 표정, 배경 처리, 장면 전환 방식이 조금씩 닮아 있습니다. 한 권씩 읽고 끝내지 말고, 세 권을 비교하며 작가만의 흔적을 찾아보세요.</p>
+    <div class="footer-note-title">탐정수사 팁</div>
+    <p>
+      같은 작가의 책을 나란히 놓고 보면 색감, 캐릭터 표정, 배경 처리, 장면 전환 방식이 조금씩 닮아 있습니다.
+      한 권씩 읽고 끝내지 말고, 세 권을 비교하며 작가만의 흔적을 찾아보세요.
+    </p>
   </div>
 
 </main>
