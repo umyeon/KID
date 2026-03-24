@@ -270,6 +270,15 @@ body::after{
   letter-spacing:-.035em;
 }
 
+.case-note .emphasis{
+  display:inline-block;
+  font-weight:700;
+  color:#7a4d17;
+  background:linear-gradient(transparent 58%, rgba(215,178,121,.45) 58%);
+  padding:0 .08em;
+  border-radius:2px;
+}
+
 /* Notice */
 .notice{
   margin:24px 0 34px;
@@ -280,6 +289,7 @@ body::after{
   color:var(--text);
   text-align:center;
   font-size:14px;
+  line-height:1.75;
   box-shadow:var(--shadow);
 }
 
@@ -860,17 +870,17 @@ document.addEventListener('DOMContentLoaded', function(){
       <h3 class="case-note-title">탐정 수사 지령</h3>
       <p>
         이 전시에는<br>
-        <span class="tight-line">비슷한 그림 스타일의 그림책 3권이 숨어있습니다.</span>
+        비슷한 그림 스타일의 그림책이 <span class="emphasis">3권씩</span> 숨어있습니다.
       </p>
       <p style="margin-top:10px;">
-        그림책을 자세히 살펴보고<br>
-        같은 작가가 그린 그림책 3권을 찾아보세요!
+        그림책을 자세히 보고 <span class="emphasis">같은 작가가 그린 그림책</span>을 찾아보세요!
       </p>
     </div>
   </div>
 
   <div class="notice">
-    📌 표지를 클릭하면 책 제목이 복사되고 도서관 검색 페이지로 이동합니다.
+    📌 표지를 클릭하면 책 제목이 복사되고<br>
+    도서관 검색 페이지로 이동합니다.
   </div>
 
   <section class="section">
